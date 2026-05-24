@@ -11,7 +11,7 @@ export function Signup() {
   const { authError, signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
-  async function handleSignup(e: React.FormEvent) {
+  async function handleSignup(e) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -30,7 +30,7 @@ export function Signup() {
       await signup(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError((err as Error).message || 'Failed to create account');
+      setError(err.message || 'Failed to create account');
     } finally {
       setLoading(false);
     }
@@ -43,7 +43,7 @@ export function Signup() {
       await loginWithGoogle();
       navigate('/dashboard');
     } catch (err) {
-      setError((err as Error).message || 'Failed to sign up with Google');
+      setError(err.message || 'Failed to sign up with Google');
     } finally {
       setLoading(false);
     }

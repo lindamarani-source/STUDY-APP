@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
@@ -10,14 +9,9 @@ import {
 } from 'firebase/auth';
 import { auth, firebaseConfigError } from '../config/firebase';
 import { AuthContext } from './auth';
-import type { AppUser, AuthContextType } from './auth';
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export function AuthProvider({ children }: AuthProviderProps) {
-  const [currentUser, setCurrentUser] = useState<AppUser | null>(null);
+export function AuthProvider({ children }) {
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(Boolean(auth));
 
   useEffect(() => {
@@ -33,7 +27,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return unsubscribe;
   }, []);
 
-  async function signup(email: string, password: string) {
+  async function signup(email, password) {
     if (!auth) {
       setCurrentUser({ email });
       return;
@@ -42,7 +36,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await createUserWithEmailAndPassword(auth, email, password);
   }
 
-  async function login(email: string, password: string) {
+  async function login(email, password) {
     if (!auth) {
       setCurrentUser({ email });
       return;
@@ -70,7 +64,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await signInWithPopup(auth, provider);
   }
 
-  const value: AuthContextType = {
+  const value = {
     currentUser,
     loading,
     authError: firebaseConfigError,

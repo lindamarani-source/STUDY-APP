@@ -1,13 +1,4 @@
-import type { Group } from '../types';
-
-interface GroupsListProps {
-  groups: Group[];
-  onSelectGroup: (group: Group) => void;
-  onCreateGroup: () => void;
-  onDeleteGroup: (id: string) => void;
-}
-
-export function GroupsList({ groups, onSelectGroup, onCreateGroup, onDeleteGroup }: GroupsListProps) {
+export function GroupsList({ groups, onSelectGroup, onCreateGroup, onDeleteGroup }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8">

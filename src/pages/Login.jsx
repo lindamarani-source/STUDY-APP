@@ -10,7 +10,7 @@ export function Login() {
   const { authError, login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e) {
     e.preventDefault();
     
     try {
@@ -19,7 +19,7 @@ export function Login() {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError((err as Error).message || 'Failed to log in');
+      setError(err.message || 'Failed to log in');
     } finally {
       setLoading(false);
     }
@@ -32,7 +32,7 @@ export function Login() {
       await loginWithGoogle();
       navigate('/dashboard');
     } catch (err) {
-      setError((err as Error).message || 'Failed to log in with Google');
+      setError(err.message || 'Failed to log in with Google');
     } finally {
       setLoading(false);
     }

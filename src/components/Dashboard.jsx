@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import type { Group } from '../types';
 import GroupsList from './GroupsList';
 import GroupDetail from './GroupDetail';
 
-function getSavedGroups(): Group[] {
+function getSavedGroups() {
   const savedGroups = localStorage.getItem('studyGroups');
 
   if (!savedGroups) {
@@ -11,15 +10,15 @@ function getSavedGroups(): Group[] {
   }
 
   try {
-    return JSON.parse(savedGroups) as Group[];
+    return JSON.parse(savedGroups);
   } catch {
     return [];
   }
 }
 
 export function Dashboard() {
-  const [groups, setGroups] = useState<Group[]>(getSavedGroups);
-  const [selectedGroup, setSelectedGroup] = useState<Group | null>(null);
+  const [groups, setGroups] = useState(getSavedGroups);
+  const [selectedGroup, setSelectedGroup] = useState(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [newGroupDescription, setNewGroupDescription] = useState('');
@@ -30,7 +29,7 @@ export function Dashboard() {
 
   const handleCreateGroup = () => {
     if (newGroupName.trim()) {
-      const newGroup: Group = {
+      const newGroup = {
         id: Date.now().toString(),
         name: newGroupName,
         description: newGroupDescription,
@@ -45,12 +44,12 @@ export function Dashboard() {
     }
   };
 
-  const handleUpdateGroup = (updatedGroup: Group) => {
+  const handleUpdateGroup = (updatedGroup) => {
     setGroups(groups.map((g) => (g.id === updatedGroup.id ? updatedGroup : g)));
     setSelectedGroup(updatedGroup);
   };
 
-  const handleDeleteGroup = (groupId: string) => {
+  const handleDeleteGroup = (groupId) => {
     if (confirm('Are you sure you want to delete this group?')) {
       setGroups(groups.filter((g) => g.id !== groupId));
       if (selectedGroup?.id === groupId) {

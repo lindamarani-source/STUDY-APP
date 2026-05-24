@@ -1,13 +1,6 @@
 import { useState } from 'react';
-import type { Member } from '../types';
 
-interface MemberCardProps {
-  member: Member;
-  onUpdate: (updates: Partial<Member>) => void;
-  onRemove: () => void;
-}
-
-export function MemberCard({ member, onUpdate, onRemove }: MemberCardProps) {
+export function MemberCard({ member, onUpdate, onRemove }) {
   const [isEditing, setIsEditing] = useState(false);
   const [hours, setHours] = useState(member.hoursWorked.toString());
   const [activity, setActivity] = useState(member.activityLevel.toString());

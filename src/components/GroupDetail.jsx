@@ -1,21 +1,14 @@
 import { useState } from 'react';
-import type { Group, Member, Task } from '../types';
 import MemberCard from './MemberCard';
 import TaskManager from './TaskManager';
 
-interface GroupDetailProps {
-  group: Group;
-  onBack: () => void;
-  onUpdateGroup: (group: Group) => void;
-}
-
-export function GroupDetail({ group, onBack, onUpdateGroup }: GroupDetailProps) {
+export function GroupDetail({ group, onBack, onUpdateGroup }) {
   const [newMemberName, setNewMemberName] = useState('');
-  const [activeTab, setActiveTab] = useState<'members' | 'tasks'>('members');
+  const [activeTab, setActiveTab] = useState('members');
 
   const handleAddMember = () => {
     if (newMemberName.trim()) {
-      const newMember: Member = {
+      const newMember = {
         id: Date.now().toString(),
         name: newMemberName,
         hoursWorked: 0,
@@ -32,7 +25,7 @@ export function GroupDetail({ group, onBack, onUpdateGroup }: GroupDetailProps) 
     }
   };
 
-  const handleUpdateMember = (memberId: string, updates: Partial<Member>) => {
+  const handleUpdateMember = (memberId, updates) => {
     const updatedGroup = {
       ...group,
       members: group.members.map((m) =>
@@ -42,7 +35,7 @@ export function GroupDetail({ group, onBack, onUpdateGroup }: GroupDetailProps) 
     onUpdateGroup(updatedGroup);
   };
 
-  const handleRemoveMember = (memberId: string) => {
+  const handleRemoveMember = (memberId) => {
     const updatedGroup = {
       ...group,
       members: group.members.filter((m) => m.id !== memberId),
@@ -50,7 +43,7 @@ export function GroupDetail({ group, onBack, onUpdateGroup }: GroupDetailProps) 
     onUpdateGroup(updatedGroup);
   };
 
-  const handleAddTask = (task: Task) => {
+  const handleAddTask = (task) => {
     const updatedGroup = {
       ...group,
       tasks: [...group.tasks, task],
@@ -58,7 +51,7 @@ export function GroupDetail({ group, onBack, onUpdateGroup }: GroupDetailProps) 
     onUpdateGroup(updatedGroup);
   };
 
-  const handleUpdateTask = (taskId: string, updates: Partial<Task>) => {
+  const handleUpdateTask = (taskId, updates) => {
     const updatedGroup = {
       ...group,
       tasks: group.tasks.map((t) =>
@@ -68,7 +61,7 @@ export function GroupDetail({ group, onBack, onUpdateGroup }: GroupDetailProps) 
     onUpdateGroup(updatedGroup);
   };
 
-  const handleRemoveTask = (taskId: string) => {
+  const handleRemoveTask = (taskId) => {
     const updatedGroup = {
       ...group,
       tasks: group.tasks.filter((t) => t.id !== taskId),

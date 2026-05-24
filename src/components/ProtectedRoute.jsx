@@ -1,12 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import type { ReactNode } from 'react';
 import { useAuth } from '../contexts/useAuth';
 
-interface ProtectedRouteProps {
-  children: ReactNode;
-}
-
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
+export function ProtectedRoute({ children }) {
   const { currentUser } = useAuth();
 
   if (!currentUser) {

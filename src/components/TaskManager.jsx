@@ -1,13 +1,4 @@
 import { useState } from 'react';
-import type { Task } from '../types';
-
-interface TaskManagerProps {
-  tasks: Task[];
-  groupId: string;
-  onAddTask: (task: Task) => void;
-  onUpdateTask: (id: string, updates: Partial<Task>) => void;
-  onRemoveTask: (id: string) => void;
-}
 
 export function TaskManager({
   tasks,
@@ -15,7 +6,7 @@ export function TaskManager({
   onAddTask,
   onUpdateTask,
   onRemoveTask,
-}: TaskManagerProps) {
+}) {
   const [showForm, setShowForm] = useState(false);
   const [newTask, setNewTask] = useState({
     title: '',
@@ -25,7 +16,7 @@ export function TaskManager({
 
   const handleAddTask = () => {
     if (newTask.title.trim()) {
-      const task: Task = {
+      const task = {
         id: Date.now().toString(),
         title: newTask.title,
         description: newTask.description,
@@ -112,7 +103,7 @@ export function TaskManager({
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {(['pending', 'in-progress', 'completed'] as const).map((status) => {
+        {['pending', 'in-progress', 'completed'].map((status) => {
           const statusConfig = {
             pending: { title: '📋 To Do', color: 'border-yellow-300 bg-yellow-50', badge: 'bg-yellow-100 text-yellow-700' },
             'in-progress': { title: '⚙️ In Progress', color: 'border-blue-300 bg-blue-50', badge: 'bg-blue-100 text-blue-700' },
@@ -158,19 +149,12 @@ export function TaskManager({
   );
 }
 
-interface TaskCardProps {
-  task: Task;
-  onUpdateStatus: (status: Task['status']) => void;
-  onUpdateCompletion: (percentage: number) => void;
-  onRemove: () => void;
-}
-
 function TaskCard({
   task,
   onUpdateStatus,
   onUpdateCompletion,
   onRemove,
-}: TaskCardProps) {
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [completion, setCompletion] = useState(task.completionPercentage.toString());
 
